@@ -1,0 +1,68 @@
+---
+title: "Exercicio 11"
+author: "Victor"
+date: "2024-08-12"
+output: html_document
+bibliography: C:\\Users\\victo\\Downloads\\ref.bib
+---
+
+# Questao 1
+
+Vamos carregar um conjunto de dados simples, como o conjunto `mtcars`, que já vem pré-carregado no R.
+
+```{r}
+# Carregando os dados
+data("mtcars")
+head(mtcars)
+
+# Ordenando os dados por mpg
+mtcars_sorted <- mtcars[order(-mtcars$mpg), ]
+head(mtcars_sorted)
+
+# Filtrando para mostrar apenas carros com 6 cilindros
+mtcars_filtered <- subset(mtcars, cyl == 6)
+head(mtcars_filtered)
+
+# Criando uma nova variável mpg_per_cyl
+mtcars$mpg_per_cyl <- mtcars$mpg / mtcars$cyl
+head(mtcars)
+```
+# Questao 2
+```{r}
+# Carregando o pacote DT
+library(DT)
+
+# Criando a tabela interativa
+datatable(mtcars, 
+          options = list(pageLength = 10, 
+                         autoWidth = TRUE, 
+                         searchHighlight = TRUE))
+
+```
+# Questao 3
+
+Esta equação representa a transformada de Fourier de uma função: $$\mathcal{F}\{f(t)\} = F(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i\omega t} \, dt$$
+
+Esta equação representa a Equação de Schrödinger: $$i\hbar \frac{\partial \psi(x,t)}{\partial t} = -\frac{\hbar^2}{2m} \frac{\partial^2 \psi(x,t)}{\partial x^2} + V(x)\psi(x,t)$$
+
+Esta é Equação de Onda: $$\frac{\partial^2 u}{\partial t^2} = c^2 \nabla^2 u$$
+
+Esta é a Fórmula de Euler: $$e^{i\theta} = \cos(\theta) + i\sin(\theta)$$
+
+Esta é a Equação de Maxwell para o Campo Elétrico:$$\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$$
+
+
+# Questao 4
+
+![Grafico 1](\Users\victo\Downloads\rmark image 1.png)
+![Grafico 2](\Users\victo\Downloads\rmark image 2.png)
+
+# Questao 5
+
+- @silva2020acesso
+- @silva2020access
+- @de2010association
+- @dos2018prospecccao
+- @holanda2006avaliaccao
+
+### Referencia
