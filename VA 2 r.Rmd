@@ -1,0 +1,108 @@
+---
+title: "VA 2"
+author: "Victor Miguel"
+date: "2024-09-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# VA 2 Análise de Dados{.tabset}
+
+## VADeaths
+Visualize o dataset VADeaths (já incluído no R) e crie um gráfico de barras empilhadas desses dados, de modo que as barras estejam agrupadas (lado a lado) para cada categoria. Também defina uma cor diferente para cada grupo das categorias. Por fim, adicione título, legenda e nomes nos eixos. Abaixo submeta o link do RPubs com o resultado dessa questão. Ela deve ficar dentro de uma aba chamada de "VADeaths".
+
+```{r}
+# Carregar as bibliotecas necessárias
+library(ggplot2)
+library(reshape2)
+
+# Carregar o dataset VADeaths
+data("VADeaths")
+#View(VADeaths)
+# Converter o dataset para formato longo para ggplot
+VADeaths_long <- melt(VADeaths)
+
+# Criar o gráfico de barras empilhadas
+ggplot(VADeaths_long, aes(x = Var2, y = value, fill = Var1)) + 
+  geom_bar(stat = "identity", position = "dodge") + 
+  labs(title = "Mortalidade em VA por Grupos de Idade e Localização",
+       x = "Grupos por localização", 
+       y = "Taxa de Mortalidade",
+       fill = "Faixa de Idades") +
+  scale_fill_brewer(palette = "Set1") +  # Paleta de cores
+  theme_minimal()
+```
+
+## ClassificaçãoDoença
+
+Uma doença pode ser classificada em três estágios (leve, moderado e severo). Foram examinados 20 pacientes e obtidos os dados: moderado, leve, leve, severo, leve, moderado, moderado, moderado, leve, leve, severo,leve, moderado, moderado, leve, severo, moderado, moderado, moderado,leve. Com base nestes dados crie um gráfico de piza.  Inclua a porcentagem de cada fatia, as cores das fatias e o nome do gráfico. Adicionalmente, use o comando legend() para incluir a legenda do gráfico. Abaixo submeta o link do RPubs com o resultado dessa questão. Ela deve ficar dentro de uma aba chamada de "ClassificaçãoDoença". Note que apenas um link do RPubs é necessário. Basta repetir o link abaixo se você já tiver submetido para outras questões.
+
+```{r}
+estagios <- c("moderado", "leve", "leve", "severo", "leve", "moderado", "moderado", 
+              "moderado", "leve", "leve", "severo", "leve", "moderado", "moderado", 
+              "leve", "severo", "moderado", "moderado", "moderado", "leve")
+
+# Contagem das ocorrências de cada estágio
+contagem <- table(estagios)
+
+# Cálculo das porcentagens
+porcentagem <- round(100 * contagem / sum(contagem), 1)
+
+# Cores para as fatias
+cores <- c("lightblue", "lightgreen", "salmon")
+
+# Criação do gráfico de pizza
+pie(contagem, 
+    labels = paste(names(contagem), "-", porcentagem, "%"),  # Nomes com porcentagem
+    col = cores, 
+    main = "Distribuição dos Estágios da Doença")
+
+# Adicionar legenda ao gráfico
+legend("topright", legend = names(contagem), fill = cores, title = "Estágios")
+
+
+```
+
+## Teorema
+
+Nesta questão, demonstre o uso do teorema do limite central, usando o conjunto de dados "flu" que é altamente não normal. Esse dataset contém as frequências das idades das mortes durante a epidemia de gripe espanhola na Suíça em 1918. Considere a idade das mortes como a população. Execute os passos a seguir. (1)Mostre o histograma e a curva de densidade do conjunto de dados "flu". (2) Crie 200 médias de amostras da população com tamanho n = 35. (3) Mostre o histograma com a curva de densidade para a médias das amostras. 4) Submeta o link do RPubs com o resultado das etapas anteriores . Essa questão deve ficar dentro de uma aba chamada de "Teorema". Note que apenas um link do RPubs é necessário. Basta repetir o link abaixo se você já tiver submetido para outras questões.
+
+```{r}
+# caminho do arquivo
+dados <- read.csv("C:/Users/victo/Downloads/flu.csv", header = TRUE, sep = ",")
+
+# Visualizar as primeiras linhas do dataset
+#head(dados)
+# Verificar o tipo de dados da coluna
+#str(dados)
+
+# Plotar o histograma com curva de densidade
+hist(dados$age, freq = FALSE, col = "lightblue", main = "Histograma das Idades das Mortes",
+     xlab = "Idade", ylab = "Densidade")
+
+# Adicionar a curva de densidade
+lines(density(dados$age), col = "red", lwd = 2)
+
+#### pt 2
+# Definir o tamanho da amostra
+n <- 35
+
+# Criar 200 amostras da população e calcular suas médias
+set.seed(123)  #  seed para reprodutibilidade
+medias_amostras <- replicate(200, mean(sample(dados$age, size = n, replace = TRUE)))
+
+# Visualizar as primeiras 6 médias
+#head(medias_amostras)
+
+
+# Plotar o histograma das médias das amostras
+hist(medias_amostras, freq = FALSE, col = "lightgreen", main = "Histograma das Médias Amostrais (n = 35)",
+     xlab = "Média das Amostras", ylab = "Densidade")
+
+# Adicionar a curva de densidade
+lines(density(medias_amostras), col = "blue", lwd = 2)
+
+```

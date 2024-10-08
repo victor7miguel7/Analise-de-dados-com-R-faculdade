@@ -6,7 +6,7 @@ output: html_document
 bibliography: C:\\Users\\victo\\Downloads\\ref.bib
 ---
 
-# Questao 1
+# Questao 1.
 
 Vamos carregar um conjunto de dados simples, como o conjunto `mtcars`, que já vem pré-carregado no R.
 
